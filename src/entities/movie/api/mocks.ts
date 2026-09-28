@@ -1,6 +1,6 @@
 import type { Movie } from "../model/types";
 
-const poster1 = "/public/posters/shmatrix.jpg";
+const poster1 = "/posters/shmatrix.jpg";
 const poster2 = "/posters/shdune.jpg";
 const poster3 = "/posters/star-shrek.jpg";
 

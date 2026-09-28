@@ -1,9 +1,9 @@
 import { mockMovies } from "../api/mocks";
-import MovieCard from "./MovieCard";
+import { MovieCard } from "../ui/MovieCard";
 
-export default function MovieList() {
+export function MovieList() {
   return (
-    <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 mx-auto">
+    <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 mx-auto py-5">
       {mockMovies.map((movie) => (
         <MovieCard key={movie.id} movie={movie} />
       ))}

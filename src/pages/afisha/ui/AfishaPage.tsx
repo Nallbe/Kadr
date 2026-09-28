@@ -1,4 +1,4 @@
-import MovieList from "@/src/entities/movie/ui/MovieList";
+import { MovieList } from "@/src/entities/movie/index";
 import Container from "@/src/shared/ui/Container";
 
 export function AfishaPage() {
