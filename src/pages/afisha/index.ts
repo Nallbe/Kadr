@@ -1,0 +1,1 @@
+export { AfishaPage } from './ui/AfishaPage'
