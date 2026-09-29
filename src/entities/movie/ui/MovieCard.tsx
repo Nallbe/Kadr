@@ -1,4 +1,5 @@
 import type { Movie } from "../model/types";
+import { Link } from "react-router-dom";
 
 import Button from "@/src/shared/ui/Button";
 
@@ -18,9 +19,11 @@ export function MovieCard({ movie }: { movie: Movie }) {
         <p></p>
       </div>
       <div>
-        <Button className="mt-auto" fullWidth>
-          Выбрать сеанс
-        </Button>
+        <Link to={`/movies/${movie.id}`}>
+          <Button className="mt-auto" fullWidth>
+            Выбрать сеанс
+          </Button>
+        </Link>
       </div>
     </div>
   );
