@@ -21,7 +21,7 @@ export const mockMovies: Movie[] = [
   },
   {
     id: 3,
-    title: "Звёздный шрек",
+    title: "Стар-шрек",
     genre: ["Фантастика", "Боевик", "Приключения"],
     duration: 127,
     posterUrl: poster3,

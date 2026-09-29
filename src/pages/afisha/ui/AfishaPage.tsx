@@ -1,4 +1,4 @@
-import { MovieList } from "@/src/entities/movie/index";
+import { mockMovies, MovieList } from "@/src/entities/movie/index";
 import Container from "@/src/shared/ui/Container";
 
 export function AfishaPage() {
@@ -10,7 +10,7 @@ export function AfishaPage() {
         <p className="mt-2 text-lg text-gray-600">
           Выберите фильм для просмотра
         </p>
-        <MovieList />
+        <MovieList movies={mockMovies} />
       </Container>
     </main>
   );
