@@ -1,3 +1,5 @@
+import { NavLink } from "react-router-dom";
+
 export function Header() {
   return (
     <header className="bg-[#121212] text-white">
@@ -9,9 +11,15 @@ export function Header() {
         <nav>
           <ul className="flex items-center gap-8">
             <li>
-              <a href="/" className="border-b-2 border-orange-primary pb-2">
+              <NavLink
+                to="/"
+                end
+                className={({ isActive }) =>
+                  isActive ? "border-b-2 border-orange-primary pb-2" : "pb-2"
+                }
+              >
                 Афиша
-              </a>
+              </NavLink>
             </li>
 
             <li>

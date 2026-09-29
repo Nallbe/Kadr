@@ -1,4 +1,5 @@
-import { AfishaPage } from "@/src/pages/afisha/index";
+import { Outlet } from "react-router-dom";
+
 import { Header } from "@/src/widgets/header";
 import "@/src/app/index.css";
 
@@ -6,7 +7,7 @@ function App() {
   return (
     <>
       <Header />
-      <AfishaPage />
+      <Outlet />
     </>
   );
 }
