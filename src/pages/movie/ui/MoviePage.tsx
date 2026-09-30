@@ -2,6 +2,9 @@ import { Link, useParams } from "react-router-dom";
 
 import { mockMovies } from "@/src/entities/movie";
 import { mockSessions } from "@/src/entities/session";
+
+import { SessionList } from "@/src/widgets/session-list";
+
 import Container from "@/src/shared/ui/Container";
 
 export function MoviePage() {
@@ -131,84 +134,7 @@ export function MoviePage() {
           >
             Расписание
           </p>
-
-          <h2 className="mt-2 text-3xl font-bold">Выберите сеанс</h2>
-
-          {sessions.length === 0 ? (
-            <div className="mt-6 rounded-2xl bg-gray-100 p-6 text-gray-600">
-              Для этого фильма пока нет доступных сеансов.
-            </div>
-          ) : (
-            <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {sessions.map((session) => {
-                const startsAt = new Date(session.startsAt);
-
-                return (
-                  <li key={session.id}>
-                    <Link
-                      to={`/sessions/${session.id}`}
-                      className="
-                        group
-                        block
-                        rounded-2xl
-                        border
-                        border-gray-200
-                        bg-white
-                        p-5
-                        shadow-sm
-                        transition
-                        hover:-translate-y-1
-                        hover:border-orange-primary
-                        hover:shadow-md
-                      "
-                    >
-                      <div className="flex items-start justify-between gap-4">
-                        <div>
-                          <time
-                            dateTime={session.startsAt}
-                            className="
-                              text-2xl
-                              font-bold
-                              transition
-                              group-hover:text-orange-primary
-                            "
-                          >
-                            {startsAt.toLocaleTimeString("ru-RU", {
-                              hour: "2-digit",
-                              minute: "2-digit",
-                            })}
-                          </time>
-
-                          <p className="mt-1 text-sm text-gray-500">
-                            {startsAt.toLocaleDateString("ru-RU", {
-                              day: "numeric",
-                              month: "long",
-                            })}
-                          </p>
-                        </div>
-
-                        <span
-                          className="
-                            rounded-full
-                            bg-orange-primary
-                            px-3
-                            py-1
-                            text-sm
-                            font-semibold
-                            text-black
-                          "
-                        >
-                          {session.price} ₽
-                        </span>
-                      </div>
-
-                      <p className="mt-5 text-gray-600">{session.hall}</p>
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          )}
+          <SessionList sessions={sessions} />
         </section>
       </Container>
     </main>
