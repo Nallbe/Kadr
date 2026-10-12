@@ -2,6 +2,7 @@ import { useParams, Link } from "react-router-dom";
 
 import { mockSessions } from "@/src/entities/session";
 import { mockMovies } from "@/src/entities/movie";
+import { mockSeats } from "@/src/entities/seat";
 
 import Container from "@/src/shared/ui/Container";
 
@@ -89,7 +90,7 @@ export function SessionPage() {
                 })}
               </p>
             </div>
-
+            {/* Данные о сеансе */}
             <div className="rounded-xl bg-gray-100 px-4 py-3">
               <p className="text-sm text-gray-500">Время</p>
 
@@ -111,12 +112,6 @@ export function SessionPage() {
               <p className="mt-1 font-semibold">{session.price} ₽</p>
             </div>
           </div>
-
-          <section className="mt-12">
-            <h2 className="text-3xl font-bold">Выберите места</h2>
-
-            <p className="mt-3 text-gray-500"></p>
-          </section>
         </section>
       </Container>
     </main>
