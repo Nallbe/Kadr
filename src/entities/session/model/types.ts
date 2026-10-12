@@ -4,5 +4,5 @@ export type Session = {
   startsAt: string,
   hall: string,
   price: number,
-   occupiedSeatIds: number[];
+  occupiedSeatIds: number[];
 }

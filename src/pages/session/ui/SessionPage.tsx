@@ -1,5 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 
+import { cn } from "@/src/shared/lib/cn";
+
 import { mockSessions } from "@/src/entities/session";
 import { mockMovies } from "@/src/entities/movie";
 import { mockSeats } from "@/src/entities/seat";
@@ -112,6 +114,56 @@ export function SessionPage() {
               <p className="mt-1 font-semibold">{session.price} ₽</p>
             </div>
           </div>
+
+          {/* Выбор места */}
+          <section className="mt-12">
+            <h2 className="text-3xl font-bold ">Выберите места</h2>
+            <div className="flex mt-14  justify-center items-center">
+              <div className="flex flex-col justify-center items-center bg-gray-200 p-10 rounded-xl gap-12">
+                <div className="w-[35%] flex flex-col items-center ml-4">
+                  <p>Экран</p>
+                  <div className="bg-gray-400 h-4 w-full mt-2 rounded-lg"></div>
+                </div>
+                <div className="grid grid-cols-8 gap-4 rounded-lg bg-white py-6 pr-6 pl-10">
+                  {mockSeats.map((seat) => {
+                    const isOccupied = session.occupiedSeatIds.includes(
+                      seat.id,
+                    );
+                    const isFirstSeatInRow = seat.number === 1;
+
+                    return (
+                      <div
+                        key={seat.id}
+                        className="relative flex items-center justify-center"
+                      >
+                        {isFirstSeatInRow && (
+                          <span className="absolute top-1/2 right-full mr-4 -translate-y-1/2 whitespace-nowrap text-sm text-gray-500">
+                            {seat.row}
+                          </span>
+                        )}
+
+                        <button
+                          type="button"
+                          disabled={isOccupied}
+                          onClick={() => {
+                            console.log(seat);
+                          }}
+                          className={cn(
+                            "h-9 w-9 cursor-pointer rounded-full bg-[#ffa4b1]",
+                            "transition-colors duration-300",
+                            !isOccupied && "hover:bg-[#fd5e6b]",
+                            isOccupied && "cursor-not-allowed bg-gray-400",
+                          )}
+                        >
+                          <span className="text-white">{seat.number}</span>
+                        </button>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          </section>
         </section>
       </Container>
     </main>
