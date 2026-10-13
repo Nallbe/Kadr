@@ -1,12 +1,12 @@
 import { useParams, Link } from "react-router-dom";
 
-import { cn } from "@/src/shared/lib/cn";
-
 import { mockSessions } from "@/src/entities/session";
 import { mockMovies } from "@/src/entities/movie";
 import { mockSeats } from "@/src/entities/seat";
 
+import { SeatButton } from "@/src/entities/seat/";
 import Container from "@/src/shared/ui/Container";
+import { NotFound } from "@/src/shared/ui/NotFound";
 
 export function SessionPage() {
   const { sessionId } = useParams();
@@ -17,15 +17,11 @@ export function SessionPage() {
 
   if (!session) {
     return (
-      <main className="min-h-screen py-16">
-        <Container>
-          <h1 className="text-3xl font-bold">Сеанс не найден</h1>
-
-          <Link to="/" className="mt-6 inline-block text-orange-primary">
-            Вернуться к афише
-          </Link>
-        </Container>
-      </main>
+      <NotFound
+        title="Сеанс не найден"
+        backLabel="Вернуться к афише"
+        backTo="/"
+      />
     );
   }
 
@@ -33,17 +29,11 @@ export function SessionPage() {
 
   if (!movie) {
     return (
-      <main className="min-h-screen py-16">
-        <Container>
-          <h1 className="text-3xl font-bold">
-            Фильм для этого сеанса не найден
-          </h1>
-
-          <Link to="/" className="mt-6 inline-block text-orange-primary">
-            Вернуться к афише
-          </Link>
-        </Container>
-      </main>
+      <NotFound
+        title="Фильм для этого сеанса не найден"
+        backLabel="Вернуться к афише"
+        backTo="/"
+      />
     );
   }
 
@@ -211,35 +201,7 @@ export function SessionPage() {
                               {seat.row}
                             </span>
                           )}
-
-                          <button
-                            type="button"
-                            disabled={isOccupied}
-                            onClick={() => {
-                              console.log(seat);
-                            }}
-                            className={cn(
-                              `
-                              h-7
-                              w-7
-                              cursor-pointer
-                              rounded-full
-                              bg-[#ffa4b1]
-                              text-xs
-                              transition-colors
-                              duration-300
-                              sm:h-8
-                              sm:w-8
-                              sm:text-sm
-                              lg:h-9
-                              lg:w-9
-                            `,
-                              !isOccupied && "hover:bg-[#fd5e6b]",
-                              isOccupied && "cursor-not-allowed bg-gray-400",
-                            )}
-                          >
-                            <span className="text-white">{seat.number}</span>
-                          </button>
+                          <SeatButton seat={seat} isOccupied={isOccupied} />
                         </div>
                       );
                     })}
