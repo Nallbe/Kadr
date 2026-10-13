@@ -4,21 +4,29 @@ import type { Seat } from "@/src/entities/seat/";
 type SeatButtonProps = {
   seat: Seat;
   isOccupied: boolean;
+  isSelected: boolean;
+  handleSeatClick: (seatId: number) => void;
 };
 
-export function SeatButton({ seat, isOccupied }: SeatButtonProps) {
+export function SeatButton({
+  seat,
+  isOccupied,
+  isSelected,
+  handleSeatClick,
+}: SeatButtonProps) {
   return (
     <div key={seat.id} className="relative flex items-center justify-center">
       <button
         type="button"
         disabled={isOccupied}
+        onClick={() => handleSeatClick(seat.id)}
         className={cn(
           `
           h-7
           w-7
           cursor-pointer
           rounded-full
-          bg-[#ffa4b1]
+          bg-gray-700
           text-xs
           transition-colors
           duration-300
@@ -28,8 +36,9 @@ export function SeatButton({ seat, isOccupied }: SeatButtonProps) {
           lg:h-9
           lg:w-9
           `,
-          !isOccupied && "hover:bg-[#fd5e6b]",
-          isOccupied && "cursor-not-allowed bg-gray-400",
+          !isOccupied && "hover:bg-gray-800",
+          isOccupied && "cursor-not-allowed bg-gray-300",
+          isSelected && "bg-orange-primary text-md",
         )}
       >
         <span className="text-white">{seat.number}</span>

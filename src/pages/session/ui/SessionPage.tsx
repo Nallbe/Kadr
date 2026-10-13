@@ -1,15 +1,20 @@
 import { useParams, Link } from "react-router-dom";
 
+import { useState, useEffect } from "react";
+
 import { mockSessions } from "@/src/entities/session";
 import { mockMovies } from "@/src/entities/movie";
 import { mockSeats } from "@/src/entities/seat";
 
 import { SeatButton } from "@/src/entities/seat/";
-import Container from "@/src/shared/ui/Container";
+import { TicketsList } from "@/src/widgets/tickets-list";
 import { NotFound } from "@/src/shared/ui/NotFound";
+
+import Container from "@/src/shared/ui/Container";
 
 export function SessionPage() {
   const { sessionId } = useParams();
+  const [selectedSeatIds, setSelectedSeatIds] = useState<number[]>([]);
 
   const session = mockSessions.find(
     (session) => session.id === Number(sessionId),
@@ -39,6 +44,19 @@ export function SessionPage() {
 
   const startsAt = new Date(session.startsAt);
 
+  function handleSeatClick(seatId: number) {
+    setSelectedSeatIds((prev) => {
+      if (prev.includes(seatId)) {
+        return prev.filter((id) => id !== seatId);
+      } else {
+        return [...prev, seatId];
+      }
+    });
+  }
+
+  useEffect(() => {
+    console.log(selectedSeatIds);
+  }, [selectedSeatIds]);
   return (
     <main className="min-h-screen bg-white py-10 md:py-16">
       <Container>
@@ -109,7 +127,7 @@ export function SessionPage() {
           <section className="mt-10 sm:mt-12">
             <h2 className="text-2xl font-bold sm:text-3xl">Выберите места</h2>
 
-            <div className="mt-8 flex justify-center sm:mt-12 lg:mt-14">
+            <div className="mt-8 flex items-center sm:mt-12 lg:mt-14">
               <div
                 className="
                   flex
@@ -142,7 +160,7 @@ export function SessionPage() {
                     className="
                       mt-2
                       h-2
-                      w-full
+                      w-[60%]
                       rounded-lg
                       bg-gray-400
                       sm:h-3
@@ -201,13 +219,24 @@ export function SessionPage() {
                               {seat.row}
                             </span>
                           )}
-                          <SeatButton seat={seat} isOccupied={isOccupied} />
+                          <SeatButton
+                            seat={seat}
+                            isOccupied={isOccupied}
+                            handleSeatClick={handleSeatClick}
+                            isSelected={selectedSeatIds.includes(seat.id)}
+                          />
                         </div>
                       );
                     })}
                   </div>
                 </div>
               </div>
+            </div>
+            <div className="mt-8 flex items-center sm:mt-12 lg:mt-14">
+              <TicketsList
+                selectedSeatIds={selectedSeatIds}
+                sessionPrice={session.price}
+              />
             </div>
           </section>
         </section>
