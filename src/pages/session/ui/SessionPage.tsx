@@ -10,6 +10,8 @@ import { SeatButton } from "@/src/entities/seat/";
 import { TicketsList } from "@/src/widgets/tickets-list";
 import { NotFound } from "@/src/shared/ui/NotFound";
 
+import { cn } from "@/src/shared/lib/cn";
+
 import Container from "@/src/shared/ui/Container";
 
 export function SessionPage() {
@@ -127,68 +129,94 @@ export function SessionPage() {
           <section className="mt-10 sm:mt-12">
             <h2 className="text-2xl font-bold sm:text-3xl">Выберите места</h2>
 
-            <div className="mt-8 flex items-center sm:mt-12 lg:mt-14">
+            <div
+              className={cn(
+                `
+      mt-8
+      flex
+      flex-col
+      gap-8
+      sm:mt-12
+      lg:mt-14
+    `,
+                selectedSeatIds.length > 0 &&
+                  `
+        lg:grid
+        lg:grid-cols-[minmax(0,2fr)_minmax(280px,1fr)]
+        lg:grid-rows-[425px]
+        lg:items-stretch
+        lg:gap-8
+      `,
+              )}
+            >
+              {/* Схема зала */}
               <div
                 className="
-                  flex
-                  w-full
-                  max-w-3xl
-                  flex-col
-                  items-center
-                  gap-8
-                  rounded-xl
-                  bg-gray-200
-                  p-4
-                  sm:gap-10
-                  sm:p-8
-                  lg:gap-12
-                  lg:p-10"
+      flex
+      w-full
+      max-w-3xl
+      flex-col
+      items-center
+      gap-8
+      rounded-xl
+      bg-gray-200
+      p-4
+      sm:gap-10
+      sm:p-8
+      lg:h-full
+      lg:max-w-none
+      lg:gap-12
+      lg:p-10
+    "
               >
+                {/* Экран */}
                 <div
                   className="
-                    flex
-                    w-2/3
-                    max-w-md
-                    flex-col
-                    items-center
-                    sm:w-1/2
-                  "
+        flex
+        w-2/3
+        max-w-md
+        flex-col
+        items-center
+        sm:w-1/2
+      "
                 >
                   <p className="text-sm text-gray-600 sm:text-base">Экран</p>
 
                   <div
                     className="
-                      mt-2
-                      h-2
-                      w-[60%]
-                      rounded-lg
-                      bg-gray-400
-                      sm:h-3
-                      lg:h-4"
+          mt-2
+          h-2
+          w-[60%]
+          rounded-lg
+          bg-gray-400
+          sm:h-3
+          lg:h-4
+        "
                   />
                 </div>
 
-                {/* Прокрутка схемы на маленьком экране */}
+                {/* Кресла */}
                 <div className="w-full overflow-x-auto pb-2">
                   <div
                     className="
-                      mx-auto
-                      grid
-                      w-max
-                      grid-cols-8
-                      gap-1.5
-                      rounded-lg
-                      bg-white
-                      py-4
-                      pr-4
-                      pl-8
-                      sm:gap-3
-                      sm:py-5
-                      sm:pr-5
-                      sm:pl-10
-                      lg:gap-4
-                      lg:py-6
-                      lg:pr-6"
+          mx-auto
+          grid
+          w-max
+          grid-cols-8
+          gap-1.5
+          rounded-lg
+          bg-white
+          py-4
+          pr-4
+          pl-8
+          sm:gap-3
+          sm:py-5
+          sm:pr-5
+          sm:pl-10
+          lg:gap-4
+          lg:py-6
+          lg:pr-6
+        "
                   >
                     {mockSeats.map((seat) => {
                       const isOccupied = session.occupiedSeatIds.includes(
@@ -205,25 +233,27 @@ export function SessionPage() {
                           {isFirstSeatInRow && (
                             <span
                               className="
-                                absolute
-                                top-1/2
-                                right-full
-                                mr-2
-                                -translate-y-1/2
-                                whitespace-nowrap
-                                text-xs
-                                text-gray-500
-                                sm:mr-3
-                                sm:text-sm"
+                    absolute
+                    top-1/2
+                    right-full
+                    mr-2
+                    -translate-y-1/2
+                    whitespace-nowrap
+                    text-xs
+                    text-gray-500
+                    sm:mr-3
+                    sm:text-sm
+                  "
                             >
                               {seat.row}
                             </span>
                           )}
+
                           <SeatButton
                             seat={seat}
                             isOccupied={isOccupied}
-                            handleSeatClick={handleSeatClick}
                             isSelected={selectedSeatIds.includes(seat.id)}
+                            handleSeatClick={handleSeatClick}
                           />
                         </div>
                       );
@@ -231,12 +261,16 @@ export function SessionPage() {
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="mt-8 flex items-center sm:mt-12 lg:mt-14">
-              <TicketsList
-                selectedSeatIds={selectedSeatIds}
-                sessionPrice={session.price}
-              />
+
+              {/* Выбранные билеты */}
+              {selectedSeatIds.length > 0 && (
+                <aside className="h-full min-h-0 w-full">
+                  <TicketsList
+                    selectedSeatIds={selectedSeatIds}
+                    sessionPrice={session.price}
+                  />
+                </aside>
+              )}
             </div>
           </section>
         </section>

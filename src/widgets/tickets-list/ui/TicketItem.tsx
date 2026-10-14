@@ -6,9 +6,9 @@ type TicketItemProps = {
 
 export function TicketItem({ seat }: TicketItemProps) {
   return (
-    <div>
+    <div className="bg-gray-200 border-orange-primary border rounded-xl p-2 text-md font-bold">
       <p>Ряд: {seat.row}</p>
-      <p>Номер: {seat.number}</p>
+      <p>Место: {seat.number}</p>
     </div>
   );
 }
