@@ -1,7 +1,5 @@
 import { useParams, Link } from "react-router-dom";
 
-import { useState, useEffect } from "react";
-
 import { mockSessions } from "@/src/entities/session";
 import { mockMovies } from "@/src/entities/movie";
 import { mockSeats } from "@/src/entities/seat";
@@ -10,17 +8,30 @@ import { SeatButton } from "@/src/entities/seat/";
 import { TicketsList } from "@/src/widgets/tickets-list";
 import { NotFound } from "@/src/shared/ui/NotFound";
 
+import { useAppDispatch, useAppSelector } from "@/src/app/store/hooks";
+
+import { toggleActiveSeats } from "@/src/features/selected-seat/index";
+
 import { cn } from "@/src/shared/lib/cn";
 
 import Container from "@/src/shared/ui/Container";
 
 export function SessionPage() {
   const { sessionId } = useParams();
-  const [selectedSeatIds, setSelectedSeatIds] = useState<number[]>([]);
+
+  const dispatch = useAppDispatch();
 
   const session = mockSessions.find(
     (session) => session.id === Number(sessionId),
   );
+
+  const selectedSeatIds = useAppSelector(
+    (state) => state.selectedSeats.selectedSeatId,
+  );
+
+  function handleSeatClick(seatId: number) {
+    dispatch(toggleActiveSeats(seatId));
+  }
 
   if (!session) {
     return (
@@ -46,19 +57,6 @@ export function SessionPage() {
 
   const startsAt = new Date(session.startsAt);
 
-  function handleSeatClick(seatId: number) {
-    setSelectedSeatIds((prev) => {
-      if (prev.includes(seatId)) {
-        return prev.filter((id) => id !== seatId);
-      } else {
-        return [...prev, seatId];
-      }
-    });
-  }
-
-  useEffect(() => {
-    console.log(selectedSeatIds);
-  }, [selectedSeatIds]);
   return (
     <main className="min-h-screen bg-white py-10 md:py-16">
       <Container>
@@ -132,21 +130,21 @@ export function SessionPage() {
             <div
               className={cn(
                 `
-      mt-8
-      flex
-      flex-col
-      gap-8
-      sm:mt-12
-      lg:mt-14
-    `,
+                mt-8
+                flex
+                flex-col
+                gap-8
+                sm:mt-12
+                lg:mt-14
+              `,
                 selectedSeatIds.length > 0 &&
                   `
-        lg:grid
-        lg:grid-cols-[minmax(0,2fr)_minmax(280px,1fr)]
-        lg:grid-rows-[425px]
-        lg:items-stretch
-        lg:gap-8
-      `,
+                   lg:grid
+                   lg:grid-cols-[minmax(0,2fr)_minmax(280px,1fr)]
+                   lg:grid-rows-[425px]
+                   lg:items-stretch
+                   lg:gap-8
+                 `,
               )}
             >
               {/* Схема зала */}
