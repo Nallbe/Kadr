@@ -23,7 +23,7 @@ export function TicketsList({
         flex-col
         overflow-hidden
         rounded-xl
-        bg-black
+        bg-gray-200
         pt-2
       "
     >
@@ -69,11 +69,11 @@ export function TicketsList({
           p-2
         "
       >
-        <p className="text-2xl font-bold text-orange-primary">
+        <p className="text-2xl font-bold text-black">
           Цена: {sessionPrice * selectedSeatIds.length} ₽
         </p>
 
-        <Button className="w-full md:w-60 md:self-start lg:w-full">
+        <Button className="w-full md:w-60 md:self-start lg:w-full hover:bg-amber-600 transition-colors duration-300 text-xl">
           Купить
         </Button>
       </div>
