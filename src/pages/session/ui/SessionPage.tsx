@@ -9,6 +9,8 @@ import { TicketsList } from "@/src/widgets/tickets-list";
 import { NotFound } from "@/src/shared/ui/NotFound";
 
 import { useAppDispatch, useAppSelector } from "@/src/app/store/hooks";
+import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch, RootState } from "@/src/app/store/store";
 
 import { toggleActiveSeats } from "@/src/features/selected-seat/index";
 
@@ -19,14 +21,14 @@ import Container from "@/src/shared/ui/Container";
 export function SessionPage() {
   const { sessionId } = useParams();
 
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   const session = mockSessions.find(
     (session) => session.id === Number(sessionId),
   );
 
-  const selectedSeatIds = useAppSelector(
-    (state) => state.selectedSeats.selectedSeatId,
+  const selectedSeatIds = useSelector(
+    (state: RootState) => state.booking.selectedSeatId,
   );
 
   function handleSeatClick(seatId: number) {

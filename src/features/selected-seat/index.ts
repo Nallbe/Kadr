@@ -1,6 +1,5 @@
 export {
   toggleActiveSeats,
   clearSelectedSeats,
+  selectedSeatReducer
 } from "./model/selectSeatsSlice";
-
-export { default as selectedSeatIdReducer } from "./model/selectSeatsSlice";

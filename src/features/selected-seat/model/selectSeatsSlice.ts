@@ -42,4 +42,4 @@ export const {
   clearSelectedSeats 
   } = selectedSeatIdSlice.actions;
 
-export default selectedSeatIdSlice.reducer;
+export const selectedSeatReducer = selectedSeatIdSlice.reducer;
