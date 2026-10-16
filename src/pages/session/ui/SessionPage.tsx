@@ -8,11 +8,10 @@ import { SeatButton } from "@/src/entities/seat/";
 import { TicketsList } from "@/src/widgets/tickets-list";
 import { NotFound } from "@/src/shared/ui/NotFound";
 
-import { useAppDispatch, useAppSelector } from "@/src/app/store/hooks";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "@/src/app/store/store";
 
-import { toggleActiveSeats } from "@/src/features/selected-seat/index";
+import { toggleActiveSeats } from "@/src/features/selected-seat";
 
 import { cn } from "@/src/shared/lib/cn";
 
@@ -28,7 +27,7 @@ export function SessionPage() {
   );
 
   const selectedSeatIds = useSelector(
-    (state: RootState) => state.booking.selectedSeatId,
+    (state: RootState) => state.booking.selectedSeatIds,
   );
 
   function handleSeatClick(seatId: number) {

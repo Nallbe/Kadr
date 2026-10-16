@@ -3,14 +3,14 @@ import {
   type PayloadAction } from "@reduxjs/toolkit";
 
 type SelectedSeatsState = {
-  selectedSeatId: number[];
+  selectedSeatIds: number[];
 };
 
 const initialState: SelectedSeatsState = {
-  selectedSeatId: [],
+  selectedSeatIds: [],
 };
 
-const selectedSeatIdSlice = createSlice({
+const selectedSeatIdsSlice = createSlice({
   name: "selectedSeatId",
   initialState,
   reducers: {
@@ -20,18 +20,18 @@ const selectedSeatIdSlice = createSlice({
     ) {
       const seatId = action.payload;
       
-      const isSelected = state.selectedSeatId.includes(seatId);
+      const isSelected = state.selectedSeatIds.includes(seatId);
 
       if (isSelected) {
-        state.selectedSeatId = state.selectedSeatId.filter(
+        state.selectedSeatIds = state.selectedSeatIds.filter(
           (id) => id !== seatId,
         );
       } else {
-        state.selectedSeatId.push(seatId);
+        state.selectedSeatIds.push(seatId);
       }
     },
     clearSelectedSeats(state) {
-      state.selectedSeatId = [];
+      state.selectedSeatIds = [];
     },
 
   },
@@ -40,6 +40,6 @@ const selectedSeatIdSlice = createSlice({
 export const { 
   toggleActiveSeats, 
   clearSelectedSeats 
-  } = selectedSeatIdSlice.actions;
+  } = selectedSeatIdsSlice.actions;
 
-export const selectedSeatReducer = selectedSeatIdSlice.reducer;
+export const selectedSeatReducer = selectedSeatIdsSlice.reducer;
