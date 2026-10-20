@@ -29,7 +29,7 @@ export function MovieCard({ movie }: { movie: Movie }) {
       </div>
       <div>
         <Link to={`/movies/${movie.id}`}>
-          <Button className="mt-auto">Выбрать сеанс</Button>
+          <Button className="text-white mt-auto">Выбрать сеанс</Button>
         </Link>
       </div>
     </div>

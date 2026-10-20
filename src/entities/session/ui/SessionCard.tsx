@@ -61,7 +61,7 @@ export function SessionCard({ session }: SessionCardProps) {
             py-1
             text-sm
             font-semibold
-            text-black
+            text-white
             "
           >
             {session.price} ₽

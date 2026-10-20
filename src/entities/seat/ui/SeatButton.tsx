@@ -38,7 +38,7 @@ export function SeatButton({
           `,
           !isOccupied && "hover:bg-gray-800",
           isOccupied && "cursor-not-allowed bg-gray-300",
-          isSelected && "bg-orange-primary text-md",
+          isSelected && "bg-orange-primary text-md hover:bg-orange-primary",
         )}
       >
         <span className="text-white">{seat.number}</span>
