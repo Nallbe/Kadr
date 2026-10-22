@@ -4,6 +4,7 @@ import App from "@/src/app/App";
 import { AfishaPage } from "@/src/pages/afisha";
 import { MoviePage } from "@/src/pages/movie";
 import { SessionPage } from "@/src/pages/session";
+import { CheckoutPage } from "@/src/pages/checkout";
 
 export const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ export const router = createBrowserRouter([
       {
         path: "sessions/:sessionId",
         element: <SessionPage />,
+      },
+      {
+        path: "checkout",
+        element: <CheckoutPage />,
       },
     ],
   },

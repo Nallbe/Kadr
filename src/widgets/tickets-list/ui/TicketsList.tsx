@@ -1,6 +1,9 @@
 import { mockSeats } from "@/src/entities/seat";
+
 import { cn } from "@/src/shared/lib/cn";
 import Button from "@/src/shared/ui/Button";
+
+import { useNavigate } from "react-router-dom";
 
 import { TicketItem } from "./TicketItem";
 
@@ -13,6 +16,8 @@ export function TicketsList({
   selectedSeatIds,
   sessionPrice,
 }: TicketListProps) {
+  const navigate = useNavigate();
+
   return (
     <div
       className="
@@ -70,8 +75,11 @@ export function TicketsList({
         <p className="text-2xl font-bold text-black">
           Цена: {sessionPrice * selectedSeatIds.length} ₽
         </p>
-
-        <Button className="w-full md:w-60 md:self-start lg:w-full hover:bg-amber-600 transition-colors duration-300 text-xl text-white">
+        <Button
+          disabled={selectedSeatIds.length === 0}
+          onClick={() => navigate("/checkout")}
+          className="w-full md:w-60 md:self-start lg:w-full hover:bg-amber-600 transition-colors duration-300 text-xl text-white"
+        >
           Перейти к оформлению
         </Button>
       </div>
