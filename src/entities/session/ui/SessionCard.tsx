@@ -52,7 +52,7 @@ export function SessionCard({ session }: SessionCardProps) {
               })}
             </p>
           </div>
-          // asd
+
           <span
             className="
             rounded-full

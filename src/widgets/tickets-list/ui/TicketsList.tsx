@@ -72,7 +72,7 @@ export function TicketsList({
         </p>
 
         <Button className="w-full md:w-60 md:self-start lg:w-full hover:bg-amber-600 transition-colors duration-300 text-xl text-white">
-          Купить
+          Перейти к оформлению
         </Button>
       </div>
     </div>

@@ -1,5 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 
+import { useEffect } from "react";
+
 import { mockSessions } from "@/src/entities/session";
 import { mockMovies } from "@/src/entities/movie";
 import { mockSeats } from "@/src/entities/seat";
@@ -11,7 +13,10 @@ import { NotFound } from "@/src/shared/ui/NotFound";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "@/src/app/store/store";
 
-import { toggleActiveSeats } from "@/src/features/selected-seat";
+import {
+  toggleActiveSeat,
+  setCurrentSession,
+} from "@/src/features/selected-seat";
 
 import { cn } from "@/src/shared/lib/cn";
 
@@ -31,8 +36,15 @@ export function SessionPage() {
   );
 
   function handleSeatClick(seatId: number) {
-    dispatch(toggleActiveSeats(seatId));
+    dispatch(toggleActiveSeat(seatId));
   }
+
+  useEffect(() => {
+    if (session === undefined) {
+      return;
+    }
+    dispatch(setCurrentSession(session.id));
+  }, [dispatch, session?.id]);
 
   if (!session) {
     return (
