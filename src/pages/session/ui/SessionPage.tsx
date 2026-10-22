@@ -31,9 +31,9 @@ export function SessionPage() {
     (session) => session.id === Number(sessionId),
   );
 
-  const selectedSeatIds = useSelector(
-    (state: RootState) => state.booking.selectedSeatIds,
-  );
+  const booking = useSelector((state: RootState) => state.booking);
+
+  const selectedSeatIds = booking.sessionId === session?.id ? booking.selectedSeatIds : [];
 
   function handleSeatClick(seatId: number) {
     dispatch(toggleActiveSeat(seatId));
