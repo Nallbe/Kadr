@@ -2,8 +2,9 @@ import { NotFound } from "@/src/shared/ui/NotFound";
 import Container from "@/src/shared/ui/Container";
 import Button from "@/src/shared/ui/Button";
 
-import { mockSessions } from "@/src/entities/session/index";
-import { mockMovies } from "@/src/entities/movie/index";
+import { mockSessions } from "@/src/entities/session";
+import { mockSeats } from "@/src/entities/seat";
+import { mockMovies } from "@/src/entities/movie";
 
 import type { RootState } from "@/src/app/store/store";
 
@@ -12,6 +13,26 @@ import { useSelector } from "react-redux";
 
 export function CheckoutPage() {
   const booking = useSelector((state: RootState) => state.booking);
+
+  if (booking.selectedSeatIds.length === 0) {
+    return (
+      <main className="py-10">
+        <Container>
+          <h2 className="text-xl font-bold">Места не выбраны</h2>
+          <Link
+            className="text-orange-primary"
+            to={
+              booking.sessionId !== null
+                ? `/sessions/${booking.sessionId}`
+                : "/"
+            }
+          >
+            Выбрать места
+          </Link>
+        </Container>
+      </main>
+    );
+  }
 
   const session = mockSessions.find((item) => item.id === booking.sessionId);
 
@@ -63,12 +84,18 @@ export function CheckoutPage() {
             <p>Выбранные места:</p>
 
             <div className="flex flex-col gap-4">
-              {selectedSeatIds.map((seat) => {
+              {selectedSeatIds.map((seatId) => {
+                const seat = mockSeats.find((item) => item.id === seatId);
+
+                if (!seat) {
+                  return null;
+                }
+
                 return (
-                  <div className="flex flex-col gap-2">
-                    <span>Ряд: {Math.ceil(seat / 8)}</span>
-                    <span>Место: {seat % 8}</span>
-                    <span>Цена: {session.price}</span>
+                  <div key={seat.id} className="flex flex-col gap-2">
+                    <span>Ряд: {seat.row}</span>
+                    <span>Место: {seat.number}</span>
+                    <span>Цена: {session.price} ₽</span>
                   </div>
                 );
               })}
@@ -79,7 +106,7 @@ export function CheckoutPage() {
             <p>Итоговая цена: {selectedSeatIds.length * session.price} ₽</p>
           </div>
           <div>
-            <Button>Подвердить заказ</Button>
+            <Button>Подтвердить заказ</Button>
             <Link to={`/sessions/${session.id}`}>Изменить места</Link>
           </div>
         </div>
