@@ -30,6 +30,7 @@ const selectedSeatIdsSlice = createSlice({
         );
       } else {
         state.selectedSeatIds.push(seatId);
+        state.selectedSeatIds.sort((a, b) => a - b);
       }
     },
 
