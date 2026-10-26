@@ -33,7 +33,8 @@ export function SessionPage() {
 
   const booking = useSelector((state: RootState) => state.booking);
 
-  const selectedSeatIds = booking.sessionId === session?.id ? booking.selectedSeatIds : [];
+  const selectedSeatIds =
+    booking.sessionId === session?.id ? booking.selectedSeatIds : [];
 
   function handleSeatClick(seatId: number) {
     dispatch(toggleActiveSeat(seatId));
@@ -143,21 +144,29 @@ export function SessionPage() {
             <div
               className={cn(
                 `
-                mt-8
-                flex
-                flex-col
-                gap-8
-                sm:mt-12
-                lg:mt-14
-              `,
-                selectedSeatIds.length > 0 &&
+                  mt-8
+                  flex
+                  flex-col
+                  gap-4
+                  sm:mt-12
+
+                  xl:gap-3
+                  lg:mt-14
+                  lg:grid
+                  lg:grid-rows-[425px]
+                  lg:items-stretch
+                  lg:transition-[grid-template-columns,gap]
+                  lg:duration-500
+                  lg:ease-in-out
+                `,
+                selectedSeatIds.length > 0
+                  ? `
+                    lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]
                   `
-                   lg:grid
-                   lg:grid-cols-[minmax(0,2fr)_minmax(280px,1fr)]
-                   lg:grid-rows-[425px]
-                   lg:items-stretch
-                   lg:gap-8
-                 `,
+                  : `
+                    lg:grid-cols-[minmax(0,1fr)_minmax(0,0fr)]
+                    lg:gap-0
+                  `,
               )}
             >
               {/* Схема зала */}
@@ -275,7 +284,7 @@ export function SessionPage() {
 
               {/* Выбранные билеты */}
               {selectedSeatIds.length > 0 && (
-                <aside className="h-full min-h-0 w-full">
+                <aside className="h-full min-h-0 w-full ">
                   <TicketsList
                     selectedSeatIds={selectedSeatIds}
                     sessionPrice={session.price}

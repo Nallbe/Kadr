@@ -44,7 +44,6 @@ export function TicketsList({
             gap-2
             p-2
             sm:grid-cols-2
-            lg:grid-cols-2
           `,
           selectedSeatIds.length > 6 && "overflow-y-auto",
         )}
@@ -78,7 +77,19 @@ export function TicketsList({
         <Button
           disabled={selectedSeatIds.length === 0}
           onClick={() => navigate("/checkout")}
-          className="w-full md:w-60 md:self-start lg:w-full hover:bg-amber-600 transition-colors duration-300 text-xl text-white"
+          className="
+          text-white
+            text-sm
+            w-full 
+            transition-colors 
+            duration-300  
+            
+            md:w-60 
+            md:self-start 
+            lg:w-full
+            2xl:text-lg
+
+          hover:bg-amber-600"
         >
           Перейти к оформлению
         </Button>
